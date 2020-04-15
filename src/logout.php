@@ -2,5 +2,5 @@
 session_start();
 
 session_destroy();
-header('Location: /cs4640/createAccount.html');  
+header('Location: ./login.html');  
 ?>
