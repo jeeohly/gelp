@@ -1,0 +1,21 @@
+.profileimg{
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;;
+	width:150px;
+	border-radius: 50%;
+}
+.postprofileimg{
+	width:35px;
+	border-radius: 50%;
+}
+.postname{
+	font-weight: 600;
+}
+.postdate{
+	float: right;
+}
+.postfooterbutton{
+	display: block;
+}
+
