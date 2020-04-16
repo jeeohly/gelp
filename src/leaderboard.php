@@ -21,7 +21,7 @@ if(isset($_SESSION['loggedIn'])){
 
 <nav class="navbar navbar-light navbar-expand-md navigation-clean">
     <div class="container">
-    	<a class="navbar-brand" href="#">Gelp</a>
+    	<a class="navbar-brand" href="./index.php">Gelp</a>
     	<input class="form-control" style="width:50%" type="text" placeholder="Search.." name="search">
     	<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
     		<span class="sr-only">Toggle navigation</span>
@@ -30,7 +30,7 @@ if(isset($_SESSION['loggedIn'])){
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item" role="presentation"><a class="nav-link" href="./profile.php?id=<?php echo $_SESSION['loggedIn'] ?>">Profile</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="./leaderboard.php">Leaderboard</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Leaderboard</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="./logout.php">Logout</a></li>
             </ul>
         </div>
@@ -40,10 +40,24 @@ if(isset($_SESSION['loggedIn'])){
 <body>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xl-6 offset-xl-3" id="leaderboardz" style="margin-bottom:30px;">
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
 <?php
+$leadsql = mysqli_query($con, "SELECT id, username, total FROM User ORDER BY total DESC");
+while($row = mysqli_fetch_array($leadsql)): ?>
+    <script>
+        document.getElementById("leaderboardz").innerHTML += "<div class='card' style='margin-top:15px;'><a href='./profile.php?id=<?php echo $row[0] ?>'><div class='card-body'><div class='row'><div class='col-4'><img class ='postprofileimg' src='https://i.imgur.com/wyYAmyX.jpg'><span class='postname'><?php echo $row[1] ?></span></div><div class='col-4'><span class='postname'>Total likes: 000</span></div><div class='col-4'><span class='postname'>Profile score: <?php echo $row[2] ?></span></div></div></div></a></div>";
+    </script>
+<?php endwhile; ?>
+<?php 
 }
  else{
       header('Location: ./createAccount.html'); 

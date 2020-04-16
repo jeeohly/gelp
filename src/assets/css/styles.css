@@ -4,16 +4,19 @@
   	margin-right: auto;;
 	width:150px;
 	border-radius: 50%;
+	margin-top:15px;
 }
 .postprofileimg{
 	width:35px;
 	border-radius: 50%;
+	margin-right:10px;
 }
 .postname{
 	font-weight: 600;
 }
 .postdate{
 	float: right;
+	font-weight: 600;
 }
 .postfooterbutton{
 	display: block;
