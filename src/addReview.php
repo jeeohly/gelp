@@ -1,6 +1,7 @@
 <?php
  session_start(); 
  include_once("./config.php"); // To connect to the database
+ include('./classes/image.php');
  // Check connection
  if (mysqli_connect_errno())
  {
@@ -9,6 +10,7 @@
 
  $userid1 =  $_SESSION['loggedIn'];
  $datetime = date('Y-m-d H:i:s');
+
 //add Review 
  $sql="INSERT INTO review (userId1, userId2, comment, score, time)
  VALUES

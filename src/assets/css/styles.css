@@ -2,7 +2,7 @@
 	display: block;
   	margin-left: auto;
   	margin-right: auto;;
-	width:150px;
+	width:100px;
 	border-radius: 50%;
 	margin-top:15px;
 }
@@ -21,4 +21,49 @@
 .postfooterbutton{
 	display: block;
 }
+
+.likenumber{
+	width:100%;
+
+}
+.likenumber:hover{
+
+}
+.postscore{
+	color:rgb(64,64,64);
+	font-weight: 600;
+}
+
+a{
+	color:rgb(64,64,64);
+	text-decoration: none;
+}
+a:visited{
+	color:rgb(64,64,64);
+	text-decoration: none;
+}
+a:hover{
+	color:rgb(0,0,0);
+	text-decoration: none;
+}
+a:active{
+	color:rgb(64,64,64);
+	text-decoration: none;
+}
+
+table tr:not(.fble_htr) {
+    counter-increment: rowNumber;
+}
+
+table tr:not(.fble_htr) td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+
+.ratingchoice{
+	margin-top:15px;
+}
+
+
 
