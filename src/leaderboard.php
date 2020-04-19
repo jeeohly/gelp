@@ -31,7 +31,8 @@ if(isset($_SESSION['loggedIn'])){
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item" role="presentation"><a class="nav-link" href="./index.php">Main</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="./profile.php?id=<?php echo $_SESSION['loggedIn'] ?>">Profile</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Leaderboard</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Users</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Store</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#">Arena</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="./logout.php">Logout</a></li>
             </ul>

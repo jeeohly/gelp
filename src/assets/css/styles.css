@@ -22,13 +22,15 @@
 	display: block;
 }
 
-.likenumber{
-	width:100%;
+.agreenum{
+	font-weight: 600;
 
 }
-.likenumber:hover{
 
+.objectnum{
+	font-weight: 600;
 }
+
 .postscore{
 	color:rgb(64,64,64);
 	font-weight: 600;

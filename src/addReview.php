@@ -10,11 +10,23 @@
 
  $userid1 =  $_SESSION['loggedIn'];
  $datetime = date('Y-m-d H:i:s');
+ //Get trust from user
+ $sql4= mysqli_query($con, "SELECT agree, object FROM User WHERE id='$userid1'");
+ $sql4q = mysqli_fetch_array($sql4);
+ $agree = $sql4q[0];
+ $object = $sql4q[1];
 
+ $trust = 0;
+ $trustdenom = $agree + $object;
+ if($trustdenom == 0){
+    $trust = 1;
+ }else{
+    $trust = $agree/$trustdenom;
+ }
 //add Review 
- $sql="INSERT INTO review (userId1, userId2, comment, score, time)
+ $sql="INSERT INTO review (userId1, userId2, comment, score, time, trust)
  VALUES
- ('$userid1', '$_POST[userId2]','$_POST[comment]','$_POST[rating]', '$datetime')";
+ ('$userid1', '$_POST[userId2]','$_POST[comment]','$_POST[rating]', '$datetime', '$trust')";
 
  if (!mysqli_query($con,$sql))
  {
@@ -22,7 +34,7 @@
  }
  //get average
 
- $sql2="SELECT AVG(score) FROM review WHERE userId2 = '$_POST[userId2]'";
+ $sql2="SELECT SUM(score*trust)/SUM(trust) FROM review WHERE userId2 = '$_POST[userId2]'";
 
  $sql2q = mysqli_query($con, $sql2);
  $sql2r = mysqli_fetch_array($sql2q)[0];

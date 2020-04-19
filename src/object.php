@@ -23,14 +23,21 @@ include_once("./config.php"); // To connect to the database
  if($objectCheckquery->num_rows > 0){
  	$objectCheck = 1;
  }
+
+ $result = array();
+ $result['agreecheck'] = $agreeCheck;
+ $result['objectcheck'] = $objectCheck;
+
+ echo json_encode($result);
  // Form the SQL query (an INSERT query)
  //check if object exists
- if($objectCheck == 1){
+ if($agreeCheck == 1){
  	mysqli_close($con);
  	exit();
  }
- if($agreeCheck == 0){
-	 $sql="INSERT INTO Agree (userId1, userId2, reviewId)
+ // Form the SQL query (an INSERT query)
+ if($objectCheck == 0){
+	 $sql="INSERT INTO Object (userId1, userId2, reviewId)
 	 VALUES
 	 ('$_POST[userid1]','$_POST[userid2]', '$_POST[reviewid]')";
 
@@ -39,14 +46,14 @@ include_once("./config.php"); // To connect to the database
 	 die('Error: ' . mysqli_error($con));
 	 }
 	 //update review 
-	 $sql2="UPDATE Review SET agree = agree + 1 WHERE id='$_POST[reviewid]'";
+	 $sql2="UPDATE Review SET object = object + 1 WHERE id='$_POST[reviewid]'";
 
 	 if (!mysqli_query($con,$sql2))
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
 	 //update user 
-	 $sql5="UPDATE User SET agree = agree + 1 WHERE id='$_POST[userid2]'";
+	 $sql5="UPDATE User SET object = object + 1 WHERE id='$_POST[userid2]'";
 
 	 if (!mysqli_query($con,$sql5))
 	 {
@@ -54,21 +61,21 @@ include_once("./config.php"); // To connect to the database
 	 }
 }else{
 	//delete agree
-	 $sql3="DELETE FROM Agree WHERE id = '$agreeCheckid'";
+	 $sql3="DELETE FROM Object WHERE id = '$objectCheckid'";
 
 	 if (!mysqli_query($con,$sql3))
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
 	 //update review 
-	 $sql4="UPDATE Review SET agree = agree - 1 WHERE id='$_POST[reviewid]'";
+	 $sql4="UPDATE Review SET object = object - 1 WHERE id='$_POST[reviewid]'";
 
 	 if (!mysqli_query($con,$sql4))
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
 	 //update user 
-	 $sql6="UPDATE User SET agree = agree - 1 WHERE id='$_POST[userid2]'";
+	 $sql6="UPDATE User SET object = object - 1 WHERE id='$_POST[userid2]'";
 
 	 if (!mysqli_query($con,$sql6))
 	 {
@@ -76,24 +83,6 @@ include_once("./config.php"); // To connect to the database
 	 }
 
 }
- //get total agree
- $agreeCount = mysqli_query($con, "SELECT agree FROM Review WHERE id ='$_POST[reviewid]'");
- $agreeCount =  mysqli_fetch_array($agreeCount)[0];
- //get total object
- $objectCount = mysqli_query($con, "SELECT object FROM Review WHERE id ='$_POST[reviewid]'");
- $objectCount =  mysqli_fetch_array($objectCount)[0];
- //get trustability
- $trust = mysqli_query($con, "SELECT trust FROM Review WHERE id ='$_POST[reviewid]'");
- $trust=  mysqli_fetch_array($trust)[0];
- 
- $result = array();
- $result['agreecheck'] = $agreeCheck;
- $result['objectcheck'] = $objectCheck;
- $result['agreecount'] = $agreeCount;
- $result['objectcount'] = $objectCount;
- $result['trust'] = $trust;
-
- echo json_encode($result);
  mysqli_close($con);
  exit();
 ?>
