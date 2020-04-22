@@ -19,10 +19,11 @@
  $trust = 0;
  $trustdenom = $agree + $object;
  if($trustdenom == 0){
-    $trust = 1;
+    $trust = 100;
  }else{
-    $trust = $agree/$trustdenom;
+    $trust = floor($agree/$trustdenom*100);
  }
+
 //add Review 
  $sql="INSERT INTO review (userId1, userId2, comment, score, time, trust)
  VALUES
@@ -34,7 +35,7 @@
  }
  //get average
 
- $sql2="SELECT SUM(score*trust)/SUM(trust) FROM review WHERE userId2 = '$_POST[userId2]'";
+ $sql2="SELECT SUM(score*trust/100)/SUM(trust/100) FROM review WHERE userId2 = '$_POST[userId2]'";
 
  $sql2q = mysqli_query($con, $sql2);
  $sql2r = mysqli_fetch_array($sql2q)[0];

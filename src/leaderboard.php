@@ -19,7 +19,7 @@ if(isset($_SESSION['loggedIn'])){
 </head>
 
 
-<nav class="navbar navbar-light navbar-expand-md navigation-clean">
+<nav class="navbar sticky-top navbar-light navbar-expand-md navigation-clean border-bottom">
     <div class="container">
     	<a class="navbar-brand" href="./index.php">Gelp</a>
     	<input class="form-control" style="width:50%" type="text" placeholder="Search.." name="search">
