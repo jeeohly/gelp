@@ -1,6 +1,6 @@
 <?php
 
-include_once("./config.php"); // To connect to the database
+include_once("./classes/config.php");// To connect to the database
  session_start();
  // Check connection
  if (mysqli_connect_errno())

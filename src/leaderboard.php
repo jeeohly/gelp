@@ -1,7 +1,8 @@
 <?php
 session_start();
 header("Content-type: text/html; charset=iso-8859-1");
-include_once("./config.php");
+include_once("./classes/config.php");
+include "./classes/functions.php";
 
 if(isset($_SESSION['loggedIn'])){
 ?>
@@ -16,37 +17,19 @@ if(isset($_SESSION['loggedIn'])){
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
     <link rel="stylesheet" href="assets/css/Search-Field-With-Icon.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 
 
-<nav class="navbar sticky-top navbar-light navbar-expand-md navigation-clean border-bottom">
-    <div class="container">
-    	<a class="navbar-brand" href="./index.php">Gelp</a>
-    	<input class="form-control" style="width:50%" type="text" placeholder="Search.." name="search">
-    	<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
-    		<span class="sr-only">Toggle navigation</span>
-    		<span class="navbar-toggler-icon"></span>
-    	</button>
-        <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link" href="./index.php">Main</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="./profile.php?id=<?php echo $_SESSION['loggedIn'] ?>">Profile</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Users</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Store</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Arena</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="./logout.php">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php include "./classes/nav.php"; ?>
 
-<body>
+<body style="background-color: rgb(224,224,224);">
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-xl-8 offset-xl-2" id="leaderboardz" style="margin-bottom:30px;">
-                <table id="restTable" class="table table-striped table-bordered" style="margin-top: 15px;" cellspacing="0">
+            <div class="col-md-12 col-xl-8 offset-xl-2" id="leaderboardz" style="margin-bottom:100px;">
+                <table id="restTable" class="table table-striped table-bordered" style="margin-top: 15px;background-color: rgb(255,255,255);border-radius:5px;" cellspacing="0">
                     <thead id="restHead">
                         <tr>
                             <th>User</th>
@@ -62,33 +45,7 @@ if(isset($_SESSION['loggedIn'])){
                         while($row = mysqli_fetch_array($leadsql)):
                             $avgScore = $row[2];
                             //status check 
-                            if($avgScore == NULL){
-                                $status = "Silver";
-                            }
-                            if($avgScore >= 1){
-                                $status = "Wood";
-                            }
-                            if($avgScore > 1.7){
-                                $status = "Iron";
-                            }
-                            if($avgScore > 2.5){
-                                $status = "Bronze";
-                            }
-                            if($avgScore > 3){
-                                $status = "Silver";
-                            }
-                            if($avgScore > 3.5){
-                                $status = "Gold";
-                            }
-                            if($avgScore > 4){
-                                $status = "Platinum";
-                            }
-                            if($avgScore > 4.5){
-                                $status = "Diamond";
-                            }
-                            if($avgScore > 4.7){
-                                $status = "Challenger";
-                            }
+                            $status = generate_rank($avgScore);
                         ?>
                         <tr>
                             <td>
@@ -113,6 +70,19 @@ if(isset($_SESSION['loggedIn'])){
 </body>
 
 </html>
+<script>
+function toggleMenu(){
+    console.log(document.getElementById("menutoggle").innerHTML);
+    var menustring = "<div id='menutoggle' style='display: none;'>on</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-off'></i></button></div><div class='btn-group mr-2' role='group'><a href='./leaderboard.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-users'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='#''><button type='button' class='btn btn-outline-secondary'><i class='fas fa-pencil-square-o'></i></button></a></div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary' disabled><i class='fas fa-user-plus'></i> 3.33</button></div><div class='btn-group' role='group'><button type='button' class='btn btn-outline-secondary' disabled><i class='fas fa-user-check'></i> 50%</button></div>";
+    var x = document.getElementById("menutoggle").innerHTML;
+    if(x == 'on'){
+        document.getElementById("toolbar").innerHTML = "<div id='menutoggle' style='display: none;'>off</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-on'></i></button></div><div class='btn-group mr-2' role='group'><a href='./index.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-home'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='./profile.php?id=<?php echo $_SESSION['loggedIn'] ?>'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-user'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a></div>";
+    }
+    if(x == 'off'){
+        document.getElementById("toolbar").innerHTML =  menustring;
+    }
+}
+</script>
 <?php
 //$leadsql = mysqli_query($con, "SELECT id, username, total FROM User ORDER BY total DESC");
 //while($row = mysqli_fetch_array($leadsql)): 

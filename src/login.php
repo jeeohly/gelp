@@ -1,6 +1,6 @@
 <?php
  session_start(); // Check connection
- include_once("./config.php"); // To connect to the database
+include_once("./classes/config.php");// To connect to the database
  if (mysqli_connect_errno())
  {
  echo "Failed to connect to MySQL: " . mysqli_connect_error();

@@ -1,10 +1,6 @@
 .profileimg{
-	display: block;
-  	margin-left: auto;
-  	margin-right: auto;;
-	width:100px;
+	width:45px;
 	border-radius: 50%;
-	margin-top:15px;
 }
 .postprofileimg{
 	width:35px;
@@ -23,11 +19,13 @@
 }
 
 .agreenum{
+	float:left;
 	font-weight: 600;
 
 }
 
 .objectnum{
+	float:left;
 	font-weight: 600;
 }
 
@@ -65,6 +63,15 @@ table tr:not(.fble_htr) td:first-child::before {
 
 .ratingchoice{
 	margin-top:15px;
+}
+
+.profilenametext{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 
