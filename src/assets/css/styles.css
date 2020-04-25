@@ -74,5 +74,7 @@ table tr:not(.fble_htr) td:first-child::before {
 	transform: translate(-50%, -50%);
 }
 
-
+html {
+  overflow-y: scroll;
+}
 

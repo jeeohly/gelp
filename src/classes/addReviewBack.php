@@ -32,8 +32,8 @@ include_once("./config.php"); // To connect to the database
 
  $sql2q = mysqli_query($con, $sql2);
  $sql2r = round(mysqli_fetch_array($sql2q)[0], 2);
- //update total
 
+ //update total
  $sql3="UPDATE user SET total = '$sql2r' WHERE id = '$_POST[userId2]'";
 
  if (!mysqli_query($con,$sql3))

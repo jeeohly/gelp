@@ -17,7 +17,7 @@ while($row = mysqli_fetch_array($resultAll)):
     $timepast = time_elapsed_string($row[5]);
 
     $agreeIcon = "<i class='far fa-thumbs-up'></i>";
-    $objectIcon = "";
+    $objectIcon = "<i class='far fa-thumbs-down'></i>";
 
     $queryAgreeCheck = "SELECT id FROM Agree WHERE reviewId = '$row[0]' AND userId1 = '$logginuserid'";
     $resultAgreeCheck = mysqli_query($con, $queryAgreeCheck);
@@ -28,11 +28,11 @@ while($row = mysqli_fetch_array($resultAll)):
     $queryObjectCheck = "SELECT id FROM Object WHERE reviewId = '$row[0]' AND userId1 = '$logginuserid'";
     $resultObjectCheck = mysqli_query($con, $queryObjectCheck);
     if($resultObjectCheck->num_rows > 0){
-        
+        $objectIcon = "<i class='fas fa-thumbs-down'></i>";
     }
 ?>
     <script>
-        document.getElementById("postfeed").innerHTML += "<div class='card' style='margin-top:15px;'><div class='card-header'><img class ='postprofileimg' src='https://i.imgur.com/wyYAmyX.jpg'><a href='./profile.php?id=<?php echo $row[1]; ?>'><span class='postname' id='postreviewer'><?php echo $postUser1r; ?></span></a> reviewed <a href='./profile.php?id=<?php echo $row[2]; ?>'><span class='postname' id='postreviewing'><?php echo $postUser2r; ?></span></a><span class='postdate'><?php echo $timepast ?></span></div><ul class='list-group list-group-flush'><li class='list-group-item'><?php echo $row[3]; ?></li><li class='list-group-item'><div class='row'><div class='col-3 border-right'><center><span id='<?php echo $row[0]; ?>bar2'><?php echo $trusthund; ?>%</span></center></div><div class='col-6'><div class='progress'><div class='progress-bar bg-secondary' role='progressbar' id='<?php echo $row[0]; ?>bar' style='width:<?php echo $trusthund; ?>%;'></div></div></div><div class='col-3 border-left'><center><?php echo $row[4]; ?></center></div></div></li><div id='<?php echo $row[0]; ?>d'></div></ul><div class='card-footer' style='padding-top:0px;padding-bottom:0px;'><div class='row'><div class='col-6'><button class='btn btn-light agreeload' style='width:100%;' id='<?php echo $row[0]; ?>'><div class='row'><div class='col-3'><span class='agreenum' id='<?php echo $row[0]; ?>num'><?php echo $row[7]; ?></span></div><div class='col-9' id='<?php echo $row[0]; ?>i1'><?php echo $agreeIcon ?></div></div></button></div><div class='col-6'><button class='btn btn-light objectload' style='width:100%;' name='<?php echo $row[0]; ?>'><div class='row'><div class='col-3'><span class='objectnum' id='<?php echo $row[0]; ?>num2'><?php echo $row[8]; ?></span></div><div class='col-9' id='<?php echo $row[0]; ?>i2'><i class='far fa-thumbs-down'></i></div></button></div></div></div></div><div style='display: none;' id='<?php echo $row[0]; ?>two'><?php echo $row[1]; ?></div>";
+        document.getElementById("postfeed").innerHTML += "<div class='card' style='margin-top:15px;'><div class='card-header'><img class ='postprofileimg' src='https://i.imgur.com/wyYAmyX.jpg'><a href='./profile.php?id=<?php echo $row[1]; ?>'><span class='postname' id='postreviewer'><?php echo $postUser1r; ?></span></a> reviewed <a href='./profile.php?id=<?php echo $row[2]; ?>'><span class='postname' id='postreviewing'><?php echo $postUser2r; ?></span></a><span class='postdate'><?php echo $timepast ?></span></div><ul class='list-group list-group-flush'><li class='list-group-item'><?php echo $row[3]; ?></li><li class='list-group-item'><div class='row'><div class='col-3 border-right'><center><span id='<?php echo $row[0]; ?>bar2'><?php echo $trusthund; ?>%</span></center></div><div class='col-6'><div class='progress'><div class='progress-bar bg-secondary' role='progressbar' id='<?php echo $row[0]; ?>bar' style='width:<?php echo $trusthund; ?>%;'></div></div></div><div class='col-3 border-left'><center><?php echo $row[4]; ?></center></div></div></li><div id='<?php echo $row[0]; ?>d'></div></ul><div class='card-footer' style='padding-top:0px;padding-bottom:0px;'><div class='row'><div class='col-6'><button class='btn btn-light rounded-0 border-left border-right agreeload' style='width:100%;' id='<?php echo $row[0]; ?>'><div class='row'><div class='col-3'><span class='agreenum' id='<?php echo $row[0]; ?>num'><?php echo $row[7]; ?></span></div><div class='col-9' id='<?php echo $row[0]; ?>i1'><?php echo $agreeIcon ?></div></div></button></div><div class='col-6'><button class='btn btn-light rounded-0 border-left border-right objectload' style='width:100%;' name='<?php echo $row[0]; ?>'><div class='row'><div class='col-3'><span class='objectnum' id='<?php echo $row[0]; ?>num2'><?php echo $row[8]; ?></span></div><div class='col-9' id='<?php echo $row[0]; ?>i2'><?php echo $objectIcon ?></div></button></div></div></div></div><div style='display: none;' id='<?php echo $row[0]; ?>two'><?php echo $row[1]; ?></div>";
         //if( '<?php echo $row[2] ?>' == '<?php echo $_SESSION['loggedIn'] ?>'){
             //document.getElementById('<?php echo $row[0]; ?>d').innerHTML += "<li class='list-group-item border-top'><div class='row'><div class='col-4 border-right'><button class='btn btn-outline-secondary replyload' style='width:100%;' id='<?php echo $row[0]; ?>dd'>Reply</button></div><div class='col-8'><textarea class='form-control' rows='1' style='resize:none;'></textarea></div></div></li>";
         //}
@@ -114,3 +114,11 @@ while($row = mysqli_fetch_array($resultAll)):
         });
     });
 </script>
+
+<?php 
+if($resultAll->num_rows == 0){
+?>   
+    <script>
+        document.getElementById("postfeed").innerHTML += "<div class='card' style='margin-top:15px;'><div class='card-body'><h6><center>No reviews yet</center></h6></div></div>";
+    </script>
+<?php } ?>

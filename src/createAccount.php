@@ -15,20 +15,19 @@
     <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
     <link rel="stylesheet" href="assets/css/Search-Field-With-Icon.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 
 <body>
-    <div class="login-clean">
+    <div class="login-clean" style="background-color: rgb(244,244,244);">
         <form action="register.php" method="post">
-            <div style="margin:30px;"><center><h1>Gelp</h1></center></div>
-            <h4>Create Account</h4>
             Username
-            <div class="form-group"><input class="form-control" type="Username" name="Username"></div>
+            <div class="form-group"><input class="form-control" style="background-color: rgb(244,244,244);" type="Username" name="Username"></div>
             Password (USE A PHONY PASSWORD/ NOT ENCRYPTED!)
-            <div class="form-group"><input class="form-control" type="password" name="Password"></div>
+            <div class="form-group"><input class="form-control" style="background-color: rgb(244,244,244);" type="password" name="Password"></div>
             Confirm Password
-            <div class="form-group"><input class="form-control" type="password" name="Password2"></div>
-            <div class="form-group"><button class="btn btn-dark btn-block" type="submit">Create account</button></div><a class="forgot" href="./login.html">Already have an account?</a>
+            <div class="form-group"><input class="form-control" style="background-color: rgb(244,244,244);" type="password" name="Password2"></div>
+            <div class="form-group"><button class="btn btn-secondary btn-block" type="submit">Create account</button></div>
         </form>
     </div>
     <script src="assets/js/jquery.min.js"></script>
@@ -36,5 +35,5 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
 </body>
-
+<?php include "./classes/nav2.php"; ?>
 </html>

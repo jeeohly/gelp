@@ -21,11 +21,6 @@ $agreeprofile = $userEntryResult[3];
 $objectprofile = $userEntryResult[4];
 $trust = $userEntryResult[5];
 
-//check if its your profile
-if($userid == $_SESSION['loggedIn']){
-    $profileCheck = 1;
-}
-
 $queryAll = "SELECT * FROM Review WHERE userid2 = '$userid' ORDER BY id DESC";
 $resultAll = mysqli_query($con, $queryAll);
 
@@ -45,8 +40,8 @@ if(isset($_SESSION['loggedIn'])){
 </script>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Gelp</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
@@ -54,19 +49,16 @@ if(isset($_SESSION['loggedIn'])){
     <link rel="stylesheet" href="assets/css/Search-Field-With-Icon.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
-
-
-<?php include "./classes/nav.php"; ?>
-
 <body style="background-color: rgb(224,224,224);">
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top:50px;">
         	<!---Column 1--->
-            <div class="col-md-6 col-xl-3 offset-xl-1">
+            <div class="col-md-5 col-xl-4">
                 <div class="card" style="margin-top:15px;">
                     <div class="card-header">
                         <div class="row">
@@ -80,7 +72,7 @@ if(isset($_SESSION['loggedIn'])){
                     </div>
                     <div class="card-body" style="padding:15px;">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-6 border-right">
                                 <h6><center><?php echo $status ?></center></h6>
                             </div>
                             <div class="col-6">
@@ -88,20 +80,19 @@ if(isset($_SESSION['loggedIn'])){
                             </div>
                         </div>
                     </div>
-                    <div class="card-header border-top">
-
+                    <div class="card-body border-top pb-0">
                         <div class="progress">
                             <div class="progress-bar bg-secondary" id="trustabilitybar" role="progressbar" style="width:<?php echo $trust; ?>%;"></div>
                         </div>
                     </div>
                     <div class="card-body" style="padding:15px;">
                         <div class="row">
-                            <div class="col-4">
-                                <h6><center><i class='far fa-thumbs-up'></i></center></h6>
+                            <div class="col-4 border-right">
+                                <h6><center><i class='far fa-thumbs-up ml-2'></i></center></h6>
                                 <center><div id="agreeprofile"><?php echo $agreeprofile; ?></div></center>
                             </div> 
-                            <div class="col-4">
-                                <h6><center><i class='far fa-thumbs-down'></i></center></h6>
+                            <div class="col-4 border-right">
+                                <h6><center><i class='far fa-thumbs-down ml-2'></i></center></h6>
                                 <center><div id="objectprofile"><?php echo $objectprofile; ?></div></center>
                             </div> 
                             <div class="col-4">
@@ -111,26 +102,9 @@ if(isset($_SESSION['loggedIn'])){
                         </div>
                     </div>
                 </div>
-                <?php if($profileCheck == 0){ ?>
-                    <button class="btn btn-secondary" style="margin-top:15px;width:100%;" role="button" data-toggle="modal" data-target="#myModal">Review</button>
-                    <!--<div class="row">
-                        <div class="col-6" style="padding-right:0px;">
-                	       <button class="btn btn-secondary" style="margin-top:15px;width:100%;" role="button" data-toggle="modal" data-target="#myModal">Review</button>
-                        </div>
-                        <div class="col-6" style="padding-left:5px;">
-                            <button class="btn btn-danger" style="margin-top:15px;width:100%;">Report</button>
-                        </div>
-                        <div class="col-6" style="padding-right:0px;">
-                        <button class="btn btn-danger" style="margin-top:5px;width:100%;">Donate</button>
-                        </div>
-                        <div class="col-6" style="padding-left:5px;">
-                            <button class="btn btn-danger" style="margin-top:5px;width:100%;">Challenge</button>
-                        </div>
-                    </div>-->
-                <?php } ?>
             </div>
             <!---Column 2--->
-            <div class="col-md-6 col-xl-7 offset-xl-0" style="margin-bottom:100px;">
+            <div class="col-md-7 col-xl-8" style="margin-bottom:100px;">
                 <div id="postfeed">
                 </div>
             </div>
@@ -142,6 +116,7 @@ if(isset($_SESSION['loggedIn'])){
 <?php
 include "./classes/posts.php";
 }else{
-      header('Location: ./createAccount.html'); 
+      header('Location: ./createAccount.php'); 
 } 
 ?>
+<?php include "./classes/nav.php"; ?>

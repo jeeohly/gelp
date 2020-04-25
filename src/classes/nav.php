@@ -1,24 +1,14 @@
 <?php 
     $loggedinUserId = $_SESSION['loggedIn'];
-    $loggedinUserInfoQuery = mysqli_query($con, "SELECT trust, total FROM User WHERE id = '$loggedinUserId'");
+    $loggedinUserInfoQuery = mysqli_query($con, "SELECT trust, total, username FROM User WHERE id = '$loggedinUserId'");
     $loggedinUserInfoResult = mysqli_fetch_array($loggedinUserInfoQuery);
     $loggedinUserTrust = $loggedinUserInfoResult[0];
     $loggedinUserTotal = $loggedinUserInfoResult[1];
+    $loggedinUsername = $loggedinUserInfoResult[2];
 ?>
-<!DOCTYPE html>
-<nav class="navbar sticky-top navbar-light bg-light navbar-expand-md border-bottom">
-    <div class="container">
-        <a class="navbar-brand mb-0 h1" href="./index.php">Gelp</a>
-        <div class="input-group ml-auto mr-auto" style="width:80%;">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-        </div>
-    </div>
-</nav>
-<nav class="navbar navbar-light bg-light navbar-expand-md fixed-bottom border-top">
-    <div class="container">
+<nav class="navbar navbar-light bg-light fixed-top border-bottom">
+    <!--mobile-->
+    <div class="d-xl-none d-lg-none d-md-block d-sm-block d-xs-block">
         <div class="btn-toolbar" role="toolbar" id="toolbar">
             <div id="menutoggle" style="display: none;">on</div>
             <div class="btn-group mr-2" role="group">
@@ -30,25 +20,90 @@
             <div class="btn-group mr-2" role="group">
                 <a href="#"><button type="button" class="btn btn-outline-secondary" role="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-pencil-square-o"></i></button></a>
             </div>
-            <div class="btn-group mr-2" role="group">
-                <button type="button" class="btn btn-outline-secondary" disabled><i class="fas fa-user-plus mr-2"></i><?php echo $loggedinUserTotal ?></button>
-            </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-secondary" disabled><i class="fas fa-user-check mr-2"></i><?php echo $loggedinUserTrust ?>%</button>
+                <button type="button" class="btn btn-secondary" disabled><i class="fas fa-user-plus mr-2"></i><span class="latestTotal"><?php echo $loggedinUserTotal ?></span></button>
+                <button type="button" class="btn btn-secondary" disabled><i class="fas fa-user-check mr-2"></i><span class="latestTrust"><?php echo $loggedinUserTrust ?>%</span></button>
             </div>
         </div>
     </div>
+    
+    <!--tablet-->
+    <div class="container d-none d-xl-none d-lg-block">
+        <button type="button" class="btn btn-primary mr-4" disabled>GELP</button>
+        <a href='./index.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-home'></i></button></a>
+        <a href='./profile.php?id=<?php echo $loggedinUserId ?>'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-user'></i></button></a>
+        <a href="./leaderboard.php"><button type="button" class="btn btn-outline-secondary"><i class="fas fa-users"></i></button></a>
+        <a href="#"><button type="button" class="btn btn-outline-secondary" role="button" data-toggle="modal" data-target="#myModal"><i class="fas fa-pencil-square-o"></i></button></a>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary ml-4" disabled><?php echo $loggedinUsername ?></button>
+            <button type="button" class="btn btn-secondary" disabled><i class="fas fa-user-plus mr-2"></i><span class="latestTotal"><?php echo $loggedinUserTotal ?></span></button>
+            <button type="button" class="btn btn-secondary" disabled><span class="latestRank"><?php echo generate_rank($loggedinUserTotal) ?></span></button>
+            <button type="button" class="btn btn-secondary mr-4" disabled><i class="fas fa-user-check mr-2"></i><span class="latestTrust"><?php echo $loggedinUserTrust ?>%</span></button>
+        </div>
+        <a href="#">
+            <button type="button" class="btn btn-outline-secondary">
+                <i class="fas fa-bell"></i>
+                <sup><span class="badge badge-secondary">9</span></sup>
+            </button>
+        </a>
+        <a href="#"><button type="button" class="btn btn-outline-secondary"><i class="fas fa-question-circle"></i></button></a>
+        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a>
+    </div>
+    <!--Desktop-->
+    <div class="container d-none d-xl-block">
+        <button type="button" class="btn btn-primary mr-4" disabled>GELP</button>
+        <a href='./index.php'><button type='button' class='btn btn-outline-secondary'>Home<i class='fas fa-home ml-2'></i></button></a>
+        <a href='./profile.php?id=<?php echo $loggedinUserId ?>'><button type='button' class='btn btn-outline-secondary'>Profile<i class='fas fa-user ml-2'></i></button></a>
+        <a href="./leaderboard.php"><button type="button" class="btn btn-outline-secondary">Rankings<i class="fas fa-users ml-2"></i></button></a>
+        <a href="#"><button type="button" class="btn btn-outline-secondary" role="button" data-toggle="modal" data-target="#myModal">Review<i class="fas fa-pencil-square-o ml-2"></i></button></a>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary ml-4" disabled><?php echo $loggedinUsername ?></button>
+            <button type="button" class="btn btn-secondary" disabled><i class="fas fa-user-plus mr-2"></i><span class="latestTotal"><?php echo $loggedinUserTotal ?></span></button>
+            <button type="button" class="btn btn-secondary" disabled><span class="latestRank"><?php echo generate_rank($loggedinUserTotal) ?></span></button>
+            <button type="button" class="btn btn-secondary mr-4" disabled><i class="fas fa-user-check mr-2"></i><span class="latestTrust"><?php echo $loggedinUserTrust ?>%</span></button>
+        </div>
+        <a href="#">
+            <button type="button" class="btn btn-outline-secondary">
+                <i class="fas fa-bell"></i>
+                <sup><span class="badge badge-secondary">9</span></sup>
+            </button>
+        </a>
+        <a href="#"><button type="button" class="btn btn-outline-secondary">Rules<i class="fas fa-question-circle ml-2"></i></button></a>
+        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'>Logout<i class='fas fa-sign-out-alt ml-2'></i></button></a>
+    </div>
+    
 </nav>
 <script>
 function toggleMenu(){
     console.log(document.getElementById("menutoggle").innerHTML);
-    var menustring = "<div id='menutoggle' style='display: none;'>on</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-off'></i></button></div><div class='btn-group mr-2' role='group'><a href='./leaderboard.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-users'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='#''><button type='button' class='btn btn-outline-secondary' role='button' data-toggle='modal' data-target='#myModal'><i class='fas fa-pencil-square-o'></i></button></a></div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary' disabled><i class='fas fa-user-plus'></i> <?php echo $loggedinUserTotal ?></button></div><div class='btn-group' role='group'><button type='button' class='btn btn-outline-secondary' disabled><i class='fas fa-user-check'></i> <?php echo $loggedinUserTrust ?>%</button></div>";
+    var menustring = "<div id='menutoggle' style='display: none;'>on</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-off'></i></button></div><div class='btn-group mr-2' role='group'><a href='./leaderboard.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-users'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='#''><button type='button' class='btn btn-outline-secondary' role='button' data-toggle='modal' data-target='#myModal'><i class='fas fa-pencil-square-o'></i></button></a></div><div class='btn-group' role='group'><button type='button' class='btn btn-secondary' disabled><i class='fas fa-user-plus mr-2'></i><span class='latestTotal'><?php echo $loggedinUserTotal ?></span></button><button type='button' class='btn btn-secondary' disabled><i class='fas fa-user-check mr-2'></i><span class='latestTrust'><?php echo $loggedinUserTrust ?>%</span></button></div>";
     var x = document.getElementById("menutoggle").innerHTML;
     if(x == 'on'){
-        document.getElementById("toolbar").innerHTML = "<div id='menutoggle' style='display: none;'>off</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-on'></i></button></div><div class='btn-group mr-2' role='group'><a href='./index.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-home'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='./profile.php?id=<?php echo $loggedinUserId ?>'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-user'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a></div>";
+        document.getElementById("toolbar").innerHTML = "<div id='menutoggle' style='display: none;'>off</div><div class='btn-group mr-2' role='group'><button type='button' class='btn btn-outline-secondary usermenu' onclick='toggleMenu()'><i class='fa fa-toggle-on'></i></button></div><div class='btn-group mr-2' role='group'><a href='./index.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-home'></i></button></a></div><div class='btn-group mr-2' role='group'><a href='./profile.php?id=<?php echo $loggedinUserId ?>'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-user'></i></button></a></div><div class='btn-group' role='group'><a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a></div>";
     }
     if(x == 'off'){
         document.getElementById("toolbar").innerHTML =  menustring;
     }
 }
+
+$(document).ready(function(){
+    function loadLatestResults(){
+        var passuserid = <?php echo $_SESSION['loggedIn']; ?>;
+        $.ajax({
+            type: "POST", 
+            url: "./classes/update.php",
+            dataType: "json",
+            data: {userid:passuserid},
+            success: function(data){
+                $('.latestTrust').html(data.trust+"%");
+                $('.latestRank').html(data.rank);
+                $('.latestTotal').html(data.total);
+            }
+        });
+    }
+    setInterval(function(){
+        loadLatestResults();
+    }, 2000);
+});
+
 </script>
