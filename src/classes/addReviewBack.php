@@ -18,7 +18,7 @@ include_once("./config.php"); // To connect to the database
  $trust = $sql4q[2]; 
 
 //add Review 
- $sql="INSERT INTO review (userId1, userId2, comment, score, time, trust)
+ $sql="INSERT INTO Review (userId1, userId2, comment, score, time, trust)
  VALUES
  ('$userid1', '$_POST[userId2]','$_POST[comment]','$_POST[rating]', '$datetime', '$trust')";
 
@@ -28,13 +28,13 @@ include_once("./config.php"); // To connect to the database
  }
  //get average
 
- $sql2="SELECT SUM(score*trust/100)/SUM(trust/100) FROM review WHERE userId2 = '$_POST[userId2]'";
+ $sql2="SELECT SUM(score*trust/100)/SUM(trust/100) FROM Review WHERE userId2 = '$_POST[userId2]'";
 
  $sql2q = mysqli_query($con, $sql2);
  $sql2r = round(mysqli_fetch_array($sql2q)[0], 2);
 
  //update total
- $sql3="UPDATE user SET total = '$sql2r' WHERE id = '$_POST[userId2]'";
+ $sql3="UPDATE User SET total = '$sql2r' WHERE id = '$_POST[userId2]'";
 
  if (!mysqli_query($con,$sql3))
  {

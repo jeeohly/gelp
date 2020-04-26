@@ -55,8 +55,8 @@ if(isset($_SESSION['loggedIn'])){
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-    <div class="container">
-        <div class="row" style="margin-top:50px;">
+    <div class="container" style="margin-top:50px;">
+        <div class="row">
         	<!---Column 1--->
             <div class="col-md-5 col-xl-4">
                 <div class="card" style="margin-top:15px;">

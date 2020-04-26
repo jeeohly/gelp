@@ -33,7 +33,7 @@ function generate_rank($avgScore){
     if($avgScore == NULL){
         $status = "Silver";
     }
-    if($avgScore >= 1){
+    if($avgScore >= 0){
         $status = "Wood";
     }
     if($avgScore >= 1.7){

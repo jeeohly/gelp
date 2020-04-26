@@ -66,20 +66,9 @@ include_once("./classes/config.php"); // To connect to the database
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
-
-	 //update user notif
-	 $datetime = date('Y-m-d H:i:s');
-	 $sqln="INSERT INTO Notification (userId1, userId2, type, postId, time)
-	 VALUES
-	 ('$_POST[userid1]', '$_POST[userid2]', 1, '$_POST[reviewid]', '$datetime')";
-
-	 if (!mysqli_query($con,$sqln))
-	 {
-	 die('Error: ' . mysqli_error($con));
-	 }
 }else{
 	 //get amount
-	 $sql8 = mysqli_query($con, "SELECT amount FROM agree WHERE userId1 = '$_POST[userid1]' AND reviewId = '$_POST[reviewid]'");
+	 $sql8 = mysqli_query($con, "SELECT amount FROM Agree WHERE userId1 = '$_POST[userid1]' AND reviewId = '$_POST[reviewid]'");
 	 $trustadd = (int)mysqli_fetch_array($sql8)[0];
 	 if($trustadd > $trust){
 	 	//$trustadd = $trust;
@@ -108,27 +97,22 @@ include_once("./classes/config.php"); // To connect to the database
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
-	 //delete user notif
-	 $sqlnd="DELETE FROM Notification WHERE type = 1 AND postId = '$_POST[reviewid]'";
-
-	 if (!mysqli_query($con,$sqlnd))
-	 {
-	 die('Error: ' . mysqli_error($con));
-	 }
-
 }
  //update user trust
- $sql7="UPDATE User SET trust = cast(round((agree/(agree+object))*100, 0) as int) WHERE id='$_POST[userid2]'";
+ $sql7="UPDATE User SET trust = IF(agree + object = 0, 50,ROUND(agree/(agree+object)*100, 0)) WHERE id='$_POST[userid2]'";
 
  if (!mysqli_query($con,$sql7))
  {
  die('Error: ' . mysqli_error($con));
  }
+
  $result = array();
  $result['agreecheck'] = $agreeCheck;
  $result['objectcheck'] = $objectCheck;
  $result['final'] = $trust;
  $result['add'] = $trustadd;
+
+
 
  echo json_encode($result);
  mysqli_close($con);

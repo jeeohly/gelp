@@ -46,7 +46,6 @@
                 <sup><span class="badge badge-secondary">9</span></sup>
             </button>
         </a>
-        <a href="#"><button type="button" class="btn btn-outline-secondary"><i class="fas fa-question-circle"></i></button></a>
         <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a>
     </div>
     <!--Desktop-->
@@ -68,8 +67,7 @@
                 <sup><span class="badge badge-secondary">9</span></sup>
             </button>
         </a>
-        <a href="#"><button type="button" class="btn btn-outline-secondary">Rules<i class="fas fa-question-circle ml-2"></i></button></a>
-        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'>Logout<i class='fas fa-sign-out-alt ml-2'></i></button></a>
+        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'>Logout</button></a>
     </div>
     
 </nav>

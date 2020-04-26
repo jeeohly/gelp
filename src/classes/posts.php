@@ -53,11 +53,17 @@ while($row = mysqli_fetch_array($resultAll)):
                 data: {userid1:passuserid1, userid2:passuserid2, reviewid:passreviewid},
                 success: function(data){
                     console.log(data);
+		    var newtrust = data.final;
+		    if(newtrust >= 100){
+			newtrust = 100;
+		    }
+		    if(newtrust <= 0){
+			newtrust = 0;
+		    }
                     if(data.agreecheck == 0 && data.objectcheck == 0){
                         var newagree = (parseInt(document.getElementById(passreviewid+"num").innerHTML) + 1).toString();
                         document.getElementById(passreviewid+"num").innerHTML = newagree;
 
-                        var newtrust = data.final;
                         document.getElementById(passreviewid+"bar").style.width = newtrust+"%";
                         document.getElementById(passreviewid+"bar2").innerHTML = newtrust+"%";
                         document.getElementById(passreviewid+"i1").innerHTML = "<i class='fas fa-thumbs-up'></i>";
@@ -65,14 +71,13 @@ while($row = mysqli_fetch_array($resultAll)):
                         var newagree2 = (parseInt(document.getElementById(passreviewid+"num").innerHTML) - 1).toString();
                         document.getElementById(passreviewid+"num").innerHTML = newagree2;
 
-                        var newtrust = data.final;
                         document.getElementById(passreviewid+"bar").style.width = newtrust+"%";
                         document.getElementById(passreviewid+"bar2").innerHTML = newtrust+"%";
                         document.getElementById(passreviewid+"i1").innerHTML = "<i class='far fa-thumbs-up'></i>";
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError){
-                    console.log(xhr.statusText);
+                    console.log(xhr);
                     console.log(thrownError);
                 }   
             });
@@ -89,17 +94,24 @@ while($row = mysqli_fetch_array($resultAll)):
                 data: {userid1:passuserid1, userid2:passuserid2, reviewid:passreviewid},
                 success: function(data){
                     console.log(data);
+		    var newtrust = data.final;
+		    if(newtrust >= 100){
+			newtrust = 100;
+		    }
+		    if(newtrust <= 0){
+			newtrust = 0;
+		    }
                     if(data.agreecheck == 0 && data.objectcheck == 0){
                         var newagree = (parseInt(document.getElementById(passreviewid+"num2").innerHTML) + 1).toString();
                         document.getElementById(passreviewid+"num2").innerHTML = newagree;
-                        var newtrust = data.final;
+                        
                         document.getElementById(passreviewid+"bar").style.width = newtrust+"%";
                         document.getElementById(passreviewid+"bar2").innerHTML = newtrust+"%";
                         document.getElementById(passreviewid+"i2").innerHTML = "<i class='fas fa-thumbs-down'></i>";
                     }if(data.agreecheck == 0 && data.objectcheck == 1){
                         var newagree2 = (parseInt(document.getElementById(passreviewid+"num2").innerHTML) - 1).toString();
                         document.getElementById(passreviewid+"num2").innerHTML = newagree2;
-                        var newtrust = data.final;
+                        
                         document.getElementById(passreviewid+"bar").style.width = newtrust+"%";
                         document.getElementById(passreviewid+"bar2").innerHTML = newtrust+"%";
                         document.getElementById(passreviewid+"i2").innerHTML = "<i class='far fa-thumbs-down'></i>";
