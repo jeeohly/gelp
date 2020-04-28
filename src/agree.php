@@ -105,14 +105,11 @@ include_once("./classes/config.php"); // To connect to the database
  {
  die('Error: ' . mysqli_error($con));
  }
-
  $result = array();
  $result['agreecheck'] = $agreeCheck;
  $result['objectcheck'] = $objectCheck;
  $result['final'] = $trust;
  $result['add'] = $trustadd;
-
-
 
  echo json_encode($result);
  mysqli_close($con);

@@ -83,7 +83,7 @@ include_once("./classes/config.php");// To connect to the database
 	 {
 	 die('Error: ' . mysqli_error($con));
 	 }
-	//delete object
+	//delete agree
 	 $sql3="DELETE FROM Object WHERE id = '$objectCheckid'";
 
 	 if (!mysqli_query($con,$sql3))
@@ -99,7 +99,7 @@ include_once("./classes/config.php");// To connect to the database
 	 }
 }
  //update user trust
- $sql7="UPDATE User SET trust = IF(agree + object = 0, 50,ROUND(agree/(agree+object)*100, 0)) WHERE id='$_POST[userid2]'";
+$sql7="UPDATE User SET trust = IF(agree + object = 0, 50,ROUND(agree/(agree+object)*100, 0)) WHERE id='$_POST[userid2]'";
 
  if (!mysqli_query($con,$sql7))
  {

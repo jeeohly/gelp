@@ -40,12 +40,13 @@
             <button type="button" class="btn btn-secondary" disabled><span class="latestRank"><?php echo generate_rank($loggedinUserTotal) ?></span></button>
             <button type="button" class="btn btn-secondary mr-4" disabled><i class="fas fa-user-check mr-2"></i><span class="latestTrust"><?php echo $loggedinUserTrust ?>%</span></button>
         </div>
-        <a href="#">
+        <!--<a href="#">
             <button type="button" class="btn btn-outline-secondary">
                 <i class="fas fa-bell"></i>
                 <sup><span class="badge badge-secondary">9</span></sup>
             </button>
-        </a>
+        </a>-->
+        <a href="#"><button type="button" class="btn btn-outline-secondary"><i class="fas fa-question-circle"></i></button></a>
         <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'><i class='fas fa-sign-out-alt'></i></button></a>
     </div>
     <!--Desktop-->
@@ -61,13 +62,14 @@
             <button type="button" class="btn btn-secondary" disabled><span class="latestRank"><?php echo generate_rank($loggedinUserTotal) ?></span></button>
             <button type="button" class="btn btn-secondary mr-4" disabled><i class="fas fa-user-check mr-2"></i><span class="latestTrust"><?php echo $loggedinUserTrust ?>%</span></button>
         </div>
-        <a href="#">
+        <!--<a href="#">
             <button type="button" class="btn btn-outline-secondary">
                 <i class="fas fa-bell"></i>
                 <sup><span class="badge badge-secondary">9</span></sup>
             </button>
-        </a>
-        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'>Logout</button></a>
+        </a>-->
+        <a href="#"><button type="button" class="btn btn-outline-secondary">Rules<i class="fas fa-question-circle ml-2"></i></button></a>
+        <a href='./logout.php'><button type='button' class='btn btn-outline-secondary'>Logout<i class='fas fa-sign-out-alt ml-2'></i></button></a>
     </div>
     
 </nav>

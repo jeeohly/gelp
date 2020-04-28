@@ -4,9 +4,6 @@ header("Content-type: text/html; charset=iso-8859-1");
 include_once("./classes/config.php");
 include "./classes/functions.php";
 
-$queryAll = "SELECT * FROM Review ORDER BY id DESC";
-$resultAll = mysqli_query($con, $queryAll);
-
 if(isset($_SESSION['loggedIn'])){
 ?>
 <!DOCTYPE html>
@@ -29,6 +26,7 @@ if(isset($_SESSION['loggedIn'])){
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-xl-8 offset-xl-2" id="postfeed" style="margin-top:50px;margin-bottom:100px;">
+
             </div>
         </div>
     </div>
@@ -42,3 +40,4 @@ include "./classes/posts.php";
 } 
 ?>
 <?php include "./classes/nav.php"; ?>
+
